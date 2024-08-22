@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{% block styles %}
+<style>
+  .custom-table > :not(caption) > * > * {
+    padding: 0.5rem 0rem; 
+  }
+</style>
+{% endblock %} 
+{% block content %}
+<div id="liveAlertPlaceholder"></div>
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header">待辦清單</div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <h3>todo list</h3>
+            <div>
+              {% include 'todoapp/todo_form.html' %}
+            </div>
+            {% include 'todoapp/todo_table.html' %}
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %} 
+  <script>
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+    const checkAlert = () => {
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+        `{% if messages %}`,
+        `{% for message in messages %}`,
+        `<div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">`,
+        `   <div>{{ message }}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>',
+        `{% endfor %}`,
+        `{% endif %}`
+      ].join('')
+
+      alertPlaceholder.append(wrapper)
+    }   
+    
+    checkAlert();
+  </script>
+{% endblock %}

@@ -1,0 +1,20 @@
+<form action="{% url 'todo:add' %}" method="post">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        name="todo_content"
+        placeholder="想要做甚麼?"
+        aria-label="find todo"
+        aria-describedby="button-addon2"
+      />
+      <button
+        class="btn btn-primary"
+        type="submit"
+        id="button-addon2"
+      >
+        送出
+      </button>
+    </div>
+    {% csrf_token %}
+</form>

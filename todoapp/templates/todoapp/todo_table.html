@@ -1,0 +1,39 @@
+<table class="table custom-table">
+    <thead>
+      <tr>
+        <th scope="col">狀態</th>
+        <th scope="col">待做事項</th>
+        <th scope="col">編輯</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      {% for todo in allTodoData %}
+        <td>
+          <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                {% if todo.isCompleted%} checked {% else %}{% endif %}
+                onclick="window.location.href='{% url "todo:change" todo.todo_id %}'"
+              />
+              <!-- <a id="change" href="{% url 'todo:change' todo.todo_id %}" style="display: none;"></a>           -->
+            <label class="form-check-label" for="flexCheckDefault">
+              {% if todo.isCompleted %} 完成 {% else %} 未完成 {% endif %}
+            </label>
+          </div>
+        </td>
+        <td>{{todo.todo}}</td>
+        <td>
+          <a href="{% url 'todo:delete' todo.todo_id %}">
+            <button class="btn btn-danger btn-sm" type="button" onclick="return confirm('真的要刪除嗎?')">
+              刪除
+            </button>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
